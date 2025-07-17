@@ -1,0 +1,74 @@
+/* --- CONTENEDOR PRINCIPAL (LAYOUT) --- */
+
+/* --- ASIGNACIÓN DE ÁREAS --- 
+.main-content { grid-area: main; }
+.sidebar { grid-area: sidebar; }
+.main-footer { grid-area: footer; }
+*/
+
+/* Usamos CSS Grid, es ideal para este tipo de layout 
+.portfolio-container {
+    display: grid;
+    grid-template-columns: 3fr 0.8fr;  //Columna principal 3 partes, sidebar 1 parte 
+    grid-template-rows: 1fr;  //Fila principal auto-ajustable 
+    grid-template-areas:
+        "main sidebar";  //Saque el footer 
+    min-height: 100vh;
+
+}
+*/
+
+
+/* --- SECCIÓN PRINCIPAL (CONTENIDO IZQUIERDO) --- */
+
+.portfolio-container {
+  display: flex;
+  background-color: var(--bg-main);
+  min-height: 100vh;
+    transition: background-color 0.5s ease-in-out;
+}
+
+.main-content {
+    margin-right: 240px;
+    padding: 0px;
+    width: calc(100% - 240px)
+}
+
+.greeting {
+  display: inline-block;
+  font-size: 2.5rem;
+   min-height: 3.3rem; /* ajustá según tamaño máximo esperado */
+  position: relative;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
+  &.fade-out {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    max-width: 800px;
+}
+
+.profile-picture {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--text-main);
+    flex-shrink: 0;
+    img {
+        border-radius: 50%;
+    }
+}
+
+/* ... (el resto de estilos de profile-picture y profile-text se mantienen igual) ... */
+.profile-picture img { width: 100%; height: 100%; object-fit: cover; }
+.profile-text { color: var(--text-secondary); }
+.profile-text h1 { font-size: 2.5rem; margin-bottom: 20px; color: var(--text-main); }
+.profile-text p { font-size: 1.1rem; line-height: 1.6; }

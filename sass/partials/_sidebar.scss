@@ -1,0 +1,240 @@
+/* --- BARRA LATERAL FIJA (DERECHA) --- */
+.sidebar {
+    /* --- INICIO DE LOS CAMBIOS --- */
+    position: fixed;   /* ¡LA CLAVE! Lo fija en la pantalla. */
+    top: 0;
+    right: 0;          /* Lo pegamos a la derecha. */
+    height: 100vh;     /* Ocupa el 100% del ALTO de la VENTANA. */
+    width: 240px;      /* Le damos un ancho fijo. AJUSTALO si es necesario. */
+    z-index: 1000;     /* Para que esté siempre por encima del contenido. */
+    background: linear-gradient(to bottom, var(--color-black), var(--color-dark-gray));
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Mantiene nav y copyright separados */
+    box-shadow: rgba(0, 0, 0, 0.90) 0px 0px 30px;
+    padding: 10px;
+    box-sizing: border-box; /* Importante para que el padding no sume al ancho */
+}
+
+/* Comienza el toggle LIGHT/NIGHT /*
+
+/* --- El Contenedor del Botón (Compacto) --- */
+
+.toggle-container {
+  display: flex;
+  justify-content: end;
+}
+.toggle-label {
+  display: block;
+  position: relative;
+  width: 60px;
+  height: 30px;
+  background-color: #87CEEB; /* Azul cielo */
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  overflow: hidden; 
+}
+
+/* --- El Sol / La Luna (El Protagonista) --- */
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  background-color: #FFD700; /* Sol */
+  border-radius: 50%;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  box-shadow: 0 0 4px rgba(255, 215, 0, 0.9);
+  z-index: 10;
+}
+
+/* --- Las Nubecitas del Día --- */
+.cloud {
+    position: absolute;
+    background-color: #fff;
+    border-radius: 15px;
+    transition: all 0.4s ease;
+    opacity: 1;
+    z-index: 5;
+}
+.cloud-1 {
+    top: 13px; left: 13px;
+    width: 20px; height: 10px;
+}
+.cloud-2 {
+    top: 18px; left: 22px;
+    width: 19px; height: 8px;
+}
+
+/* --- LAS ESTRELLAS EN EL CIELO NOCTURNO (POSICIÓN CORREGIDA) --- */
+.star {
+  position: absolute;
+  background-color: #FFF;
+  border-radius: 50%;
+  transition: all 0.4s ease;
+  z-index: 5;
+  transform: scale(0);
+  opacity: 0;
+}
+/* AHORA USAMOS 'left' PARA QUE APAREZCAN EN LA ZONA VACÍA */
+.star-1 {
+  top: 6px; left: 10px;
+  width: 3px; height: 3px;
+}
+.star-2 {
+  top: 18px; left: 15px;
+  width: 2px; height: 2px;
+}
+.star-3 {
+  top: 12px; left: 22px;
+  width: 1px; height: 1px;
+}
+
+
+/* --- Escondemos el checkbox que nadie necesita ver --- */
+.toggle-checkbox {
+  display: none;
+}
+
+
+/* --- LA TRANSFORMACIÓN A MODO NOCHE --- */
+
+/* 1. Fondo a azul noche */
+.toggle-checkbox:checked + .toggle-label {
+  background-color: #1B2735;
+}
+
+/* 2. Sol -> Luna (se mueve y le sale la sombra) */
+.toggle-checkbox:checked + .toggle-label .toggle-thumb {
+  background-color: #f1c40f;
+  transform: translateX(30px);
+  box-shadow: inset -4px 0 0 0px #f0e68c;
+}
+
+/* 3. Las nubes se van flotando */
+.toggle-checkbox:checked + .toggle-label .cloud {
+    transform: translateX(-25px); /* Hacemos que se vayan para el otro lado */
+    opacity: 0;
+}
+
+/* 4. ¡Las estrellas del fondo aparecen! */
+.toggle-checkbox:checked + .toggle-label .star {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Les damos un delay para que titilen al aparecer */
+.toggle-checkbox:checked + .toggle-label .star-1 { transition-delay: 0.1s; }
+.toggle-checkbox:checked + .toggle-label .star-2 { transition-delay: 0.2s; }
+.toggle-checkbox:checked + .toggle-label .star-3 { transition-delay: 0.3s; }
+
+/* TERMINA EL TOGGLE LIGHT/NIGHT */
+
+
+.sidebar nav {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Mantiene el nav centrado verticalmente */
+    align-items: flex-end;   /* Alinea los links a la derecha dentro del nav */
+    padding-right: 0;     /* Un poco de espacio para que no queden pegados al borde */
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sidebar nav ul li a {
+    display: inline-block;
+    color: var(--text-nav);
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.sidebar nav ul li a:hover, .sidebar nav ul li a.active {
+    color: var(--accent);
+    transform: translateX(5px);
+}
+
+.card-sidebar {
+  width: fit-content;
+  height: fit-content;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px 25px;
+  gap: 20px;
+}
+
+/* for all social containers*/
+.socialContainer {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgb(44, 44, 44);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition-duration: 1s;
+}
+/* instagram*/
+.containerOne:hover {
+  background-color: #d62976;
+  transition-duration: 0.3s;
+}
+/* twitter*/
+.containerTwo:hover {
+  background-color: #00acee;
+  transition-duration: 0.3s;
+}
+/* linkdin*/
+.containerThree:hover {
+  background-color: #0072b1;
+  transition-duration: 0.3s;
+}
+/* Whatsapp*/
+.containerFour:hover {
+  background-color: #128c7e;
+  transition-duration: 0.3s;
+}
+
+.socialContainer:active {
+  transform: scale(0.9);
+  transition-duration: 0.3s;
+}
+
+.socialSvg {
+  width: 17px;
+}
+
+.socialSvg path {
+  fill: rgb(255, 255, 255);
+}
+
+.socialContainer:hover .socialSvg {
+  animation: slide-in-top 0.3s both;
+}
+
+@keyframes slide-in-top {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

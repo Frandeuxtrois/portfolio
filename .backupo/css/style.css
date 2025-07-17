@@ -1,0 +1,297 @@
+@charset "UTF-8";
+/* --- RESET --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: "Reddit Sans", "Arial", sans-serif;
+}
+
+:root {
+  --bg-main: #F5F5F5;
+  --bg-secondary: #2C2F36;
+  --accent: #00C2FF;
+  --highlight: #2CB67D;
+  --soft-blue: #94A1B2;
+  --text-main: #000000;
+  --text-secondary: #9b9b9b;
+  --text-nav: #F5F5F5;
+  --color-black: #000000;
+  --color-dark-gray: #2c2c2c;
+}
+
+/* --- CONTENEDOR PRINCIPAL (LAYOUT) --- */
+/* --- ASIGNACIÓN DE ÁREAS --- 
+.main-content { grid-area: main; }
+.sidebar { grid-area: sidebar; }
+.main-footer { grid-area: footer; }
+*/
+/* Usamos CSS Grid, es ideal para este tipo de layout 
+.portfolio-container {
+    display: grid;
+    grid-template-columns: 3fr 0.8fr;  //Columna principal 3 partes, sidebar 1 parte 
+    grid-template-rows: 1fr;  //Fila principal auto-ajustable 
+    grid-template-areas:
+        "main sidebar";  //Saque el footer 
+    min-height: 100vh;
+
+}
+*/
+/* --- SECCIÓN PRINCIPAL (CONTENIDO IZQUIERDO) --- */
+.portfolio-container {
+  display: flex;
+  background-color: var(--bg-main);
+  min-height: 100vh;
+}
+
+.main-content {
+  margin-right: 240px;
+  padding: 0px;
+}
+
+.greeting {
+  display: inline-block;
+  font-size: 2.5rem;
+  min-height: 3.3rem; /* ajustá según tamaño máximo esperado */
+  position: relative;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+.greeting.fade-out {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  max-width: 800px;
+}
+
+.profile-picture {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--text-main);
+  flex-shrink: 0;
+}
+.profile-picture img {
+  border-radius: 50%;
+}
+
+/* ... (el resto de estilos de profile-picture y profile-text se mantienen igual) ... */
+.profile-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-text {
+  color: var(--text-secondary);
+}
+
+.profile-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: var(--text-main);
+}
+
+.profile-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* --- BARRA LATERAL FIJA (DERECHA) --- */
+.sidebar {
+  /* --- INICIO DE LOS CAMBIOS --- */
+  position: fixed; /* ¡LA CLAVE! Lo fija en la pantalla. */
+  top: 0;
+  right: 0; /* Lo pegamos a la derecha. */
+  height: 100vh; /* Ocupa el 100% del ALTO de la VENTANA. */
+  width: 240px; /* Le damos un ancho fijo. AJUSTALO si es necesario. */
+  z-index: 1000; /* Para que esté siempre por encima del contenido. */
+  background: linear-gradient(to bottom, var(--color-black), var(--color-dark-gray));
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Mantiene nav y copyright separados */
+  box-shadow: rgba(0, 0, 0, 0.9) 0px 0px 30px;
+  padding: 10px;
+  box-sizing: border-box; /* Importante para que el padding no sume al ancho */
+}
+
+.sidebar nav {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Mantiene el nav centrado verticalmente */
+  align-items: flex-end; /* Alinea los links a la derecha dentro del nav */
+  padding-right: 0; /* Un poco de espacio para que no queden pegados al borde */
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar nav ul li a {
+  display: inline-block;
+  color: var(--text-nav);
+  text-decoration: none;
+  font-size: 1.3rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.sidebar nav ul li a:hover, .sidebar nav ul li a.active {
+  color: var(--accent);
+  transform: translateX(5px);
+}
+
+.sidebar-copyright {
+  /* Lo mantenemos abajo, no necesita position: absolute si el flex funciona bien */
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-align: center;
+  padding-bottom: 5px; /* Un poco de aire abajo */
+}
+
+.full-page-section {
+  min-height: 100vh; /* Para que cada una ocupe la pantalla */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 60px; /* Un buen espaciado interno */
+  box-sizing: border-box;
+  scroll-snap-align: start;
+}
+
+.full-page-section h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #1e2a38;
+}
+
+/* --- FOOTER --- */
+.main-footer {
+  background-color: var(--color-dark-gray); /* Hacemos que siga el degradado */
+  color: #a0a0a0;
+  padding: 15px;
+  text-align: center;
+}
+.main-footer p {
+  font-size: 0.8rem;
+}
+
+/* --- DISEÑO RESPONSIVO (PARA MÓVILES) --- */
+@media (max-width: 850px) {
+  /* 1. Apilamos los elementos verticalmente */
+  .portfolio-container {
+    /* Cambiamos a Flexbox para apilar fácilmente. Si usas Grid, esto también funciona */
+    display: flex;
+    flex-direction: column;
+  }
+  /* 2. Reseteamos la barra lateral para que sea una barra de navegación superior */
+  .sidebar {
+    order: 1; /* La navegación va primero */
+    position: static; /* RESETEAMOS la posición para que fluya normal */
+    height: auto; /* La altura debe ser automática, no 100vh */
+    width: 100%; /* Ocupa todo el ancho */
+    /* Ajustamos el padding para que no sea tan grande verticalmente */
+    padding: 15px 20px;
+  }
+  /* 3. Convertimos la lista de navegación en una fila horizontal */
+  .sidebar nav {
+    align-items: center; /* Centramos la lista de links */
+  }
+  .sidebar nav ul {
+    /* ¡CORRECCIÓN CLAVE! Usamos flex para poner los links en fila */
+    display: flex;
+    flex-direction: row; /* Ponemos los elementos en fila */
+    flex-wrap: wrap; /* Si no caben, pasarán a la siguiente línea */
+    justify-content: center;
+    gap: 20px; /* Espacio entre los links */
+  }
+  .sidebar nav ul li a {
+    font-size: 1rem; /* Hacemos la fuente un poco más pequeña */
+    /* Quitamos el padding extra de aquí para controlar el espacio con 'gap' */
+  }
+  /* 4. Le decimos al contenido principal que va después de la barra */
+  .main-content {
+    order: 2; /* El contenido principal va segundo */
+    margin-right: 0; /* MUY IMPORTANTE: Quitamos el margen que pusimos para escritorio */
+  }
+  /* 5. Ajustes visuales para el contenido en móvil */
+  .full-page-section {
+    /* Reducimos el padding en móviles para dar más espacio al contenido */
+    padding: 40px 20px;
+  }
+  .profile-section {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px; /* Reducimos un poco el espacio */
+  }
+}
+#arrow {
+  position: fixed;
+  pointer-events: none;
+  transform-origin: center center;
+  transition: transform 0.05s linear, opacity 0.3s ease;
+  font-size: 24px;
+  z-index: 9999;
+  opacity: 1;
+  width: 7px; /* Ajustá esto según el tamaño que quieras */
+  height: auto;
+}
+
+#ripple-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  animation: ripple-effect 0.6s ease-out forwards;
+  will-change: width, height, opacity;
+}
+
+.ripple--dark {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.ripple--light {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+@keyframes ripple-effect {
+  from {
+    opacity: 1;
+  }
+  to {
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

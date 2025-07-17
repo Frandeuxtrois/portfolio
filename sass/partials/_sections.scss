@@ -1,0 +1,43 @@
+.full-page-section {
+    min-height: 100vh; /* Para que cada una ocupe la pantalla */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 60px; /* Un buen espaciado interno */
+    box-sizing: border-box;
+    scroll-snap-align: start;
+}
+
+.full-page-section h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: var(--text-main);
+}
+
+.full-page-section h3 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: var(--text-nav);
+}
+
+#about {
+    min-height: 100vh;
+    background-color: var(--color-dark-gray);
+    color: white;
+    transition: background-color 0.5s ease-in-out;
+}
+
+#projects {
+min-height: 100vh;
+}
+
+#tools {
+    min-height: 100vh;
+    background-color: var(--color-dark-gray);
+    transition: background-color 0.5s ease-in-out;
+}
+
+#contact {
+    min-height: 100vh;
+}
