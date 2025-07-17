@@ -62,53 +62,28 @@
 
 /* --- 4. LA LÓGICA DE ACTIVACIÓN --- */
 /* Cuando el BODY tiene la clase... */
-/* =======================================================
-//   LÓGICA DE DARK MODE - VERSIÓN FINAL COREOGRAFIADA
-// ======================================================= */
-
-/* =======================================================
-//   LÓGICA DE DARK MODE - VERSIÓN FINAL CON CAPAS CORRECTAS
-// ======================================================= */
-
 body.dark-mode-active {
-
-  /* 
-    ACCIÓN #1: OSCURECER LA BASE DE TODO (EL BODY)
-    Esto es lo que previene el flash blanco. Al cambiar el color
-    del body a oscuro, cualquier transparencia que ocurra después
-    revelará este color oscuro, no el blanco por defecto.
-  */
-  background-color: #090A0F;
-
-  /* 
-    ACCIÓN #2: HACER TRANSPARENTE EL CONTENEDOR PRINCIPAL
-    Para que pueda dejar ver el cielo estrellado que está en una capa inferior (z-index: -1).
-    Esto es crucial.
-  */
-  .portfolio-container {
-    background-color: transparent;
-  }
-  
-  /*
-    ACCIÓN #3: HACER TRANSPARENTES LAS SECCIONES
-    Ahora sí, cuando estas secciones pasen de su color original
-    a transparente, revelarán el .portfolio-container (que ahora es transparente)
-    y, por lo tanto, el fondo estrellado que está detrás de todo.
-  */
-  #about,
-  #tools {
-    background-color: transparent !important;
-  }
-
-  /* 
-    ACCIÓN #4: ENCENDER LAS ESTRELLAS
-    Hacemos visible el fondo estrellado.
-  */
+  /* 1. Hacemos visible el fondo estrellado */
   #starry-background {
     opacity: 1;
   }
+
+   .portfolio-container {
+    background-color: transparent;
+    transition: background-color 0.5s ease;
+  }
+
+  /* 2. Hacemos transparente el fondo del contenido principal */
+  .main-content {
+    background: transparent !important;
+  }
   
-  /* --- El resto de tus estilos de legibilidad (esto sigue igual) --- */
+  /* 3. Hacemos transparentes las secciones que tenían su propio fondo */
+  #about, #tools {
+    background-color: transparent !important;
+  }
+  
+  /* 4. MEJORAS DE LEGIBILIDAD: Cambiamos el color de todos los textos importantes */
   .main-content,
   .main-content h1,
   .main-content h2,

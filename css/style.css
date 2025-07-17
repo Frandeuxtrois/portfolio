@@ -229,7 +229,7 @@ html, body {
 /* --- LA TRANSFORMACIÓN A MODO NOCHE --- */
 /* 1. Fondo a azul noche */
 .toggle-checkbox:checked + .toggle-label {
-  background-color: #1B2735;
+  background-color: #090A0F;
 }
 
 /* 2. Sol -> Luna (se mueve y le sale la sombra) */
@@ -705,46 +705,24 @@ h4 + p, p + p {
 
 /* --- 4. LA LÓGICA DE ACTIVACIÓN --- */
 /* Cuando el BODY tiene la clase... */
-/* =======================================================
-//   LÓGICA DE DARK MODE - VERSIÓN FINAL COREOGRAFIADA
-// ======================================================= */
-/* =======================================================
-//   LÓGICA DE DARK MODE - VERSIÓN FINAL CON CAPAS CORRECTAS
-// ======================================================= */
 body.dark-mode-active {
-  /* 
-    ACCIÓN #1: OSCURECER LA BASE DE TODO (EL BODY)
-    Esto es lo que previene el flash blanco. Al cambiar el color
-    del body a oscuro, cualquier transparencia que ocurra después
-    revelará este color oscuro, no el blanco por defecto.
-  */
-  background-color: #090A0F;
-  /* 
-    ACCIÓN #2: HACER TRANSPARENTE EL CONTENEDOR PRINCIPAL
-    Para que pueda dejar ver el cielo estrellado que está en una capa inferior (z-index: -1).
-    Esto es crucial.
-  */
-  /*
-    ACCIÓN #3: HACER TRANSPARENTES LAS SECCIONES
-    Ahora sí, cuando estas secciones pasen de su color original
-    a transparente, revelarán el .portfolio-container (que ahora es transparente)
-    y, por lo tanto, el fondo estrellado que está detrás de todo.
-  */
-  /* 
-    ACCIÓN #4: ENCENDER LAS ESTRELLAS
-    Hacemos visible el fondo estrellado.
-  */
-  /* --- El resto de tus estilos de legibilidad (esto sigue igual) --- */
-}
-body.dark-mode-active .portfolio-container {
-  background-color: transparent;
-}
-body.dark-mode-active #about,
-body.dark-mode-active #tools {
-  background-color: transparent !important;
+  /* 1. Hacemos visible el fondo estrellado */
+  /* 2. Hacemos transparente el fondo del contenido principal */
+  /* 3. Hacemos transparentes las secciones que tenían su propio fondo */
+  /* 4. MEJORAS DE LEGIBILIDAD: Cambiamos el color de todos los textos importantes */
 }
 body.dark-mode-active #starry-background {
   opacity: 1;
+}
+body.dark-mode-active .portfolio-container {
+  background-color: transparent;
+  transition: background-color 0.5s ease;
+}
+body.dark-mode-active .main-content {
+  background: transparent !important;
+}
+body.dark-mode-active #about, body.dark-mode-active #tools {
+  background-color: transparent !important;
 }
 body.dark-mode-active .main-content,
 body.dark-mode-active .main-content h1,
