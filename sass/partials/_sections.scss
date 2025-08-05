@@ -10,13 +10,13 @@
 }
 
 .full-page-section h2 {
-    font-size: 3rem;
+    font-size: 2rem;
     margin-bottom: 20px;
     color: var(--text-main);
 }
 
 .full-page-section h3 {
-    font-size: 3rem;
+    font-size: 2rem;
     margin-bottom: 20px;
     color: var(--text-nav);
 }
@@ -35,9 +35,41 @@ min-height: 100vh;
 #tools {
     min-height: 100vh;
     background-color: var(--color-dark-gray);
+    color: white;
     transition: background-color 0.5s ease-in-out;
 }
 
 #contact {
     min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+
+  .full-page-section {
+    /*
+     * 1. CAMBIO CLAVE PARA MÓVIL: Le quitamos la altura de pantalla
+     *    completa para que el scroll sea natural y fluido.
+    */
+    min-height: auto; 
+
+    /*
+     * 2. BUENA PRÁCTICA: Anulamos el alineamiento de snap para que el CSS
+     *    sea consistente con el comportamiento que queremos en móvil.
+    */
+    scroll-snap-align: none;
+
+    /*
+     * 3. Mantenemos el ajuste de padding para una mejor visualización.
+    */
+    padding: 60px 20px; 
+  }
+
+  /*
+   * 4. Mantenemos los ajustes de tipografía para móvil.
+  */
+  .full-page-section h2,
+  .full-page-section h3 {
+    font-size: 1.8rem;
+    text-align: center;
+  }
 }

@@ -9,3 +9,14 @@
   width: 7px; /* Ajustá esto según el tamaño que quieras */
   height: auto;
 }
+
+@media (max-width: 768px) {
+  
+  /* ... (todos tus otros estilos de móvil van aquí arriba) ... */
+
+  /* --- PARA OCULTAR EL PUNTERO DE CONTACTO EN MÓVIL --- */
+  #arrow {
+    display: none !important;
+  }
+  
+}

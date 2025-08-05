@@ -4,7 +4,6 @@
 const lenis = new Lenis({
   duration: 0.8,
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  // ... otros parámetros de Lenis si los personalizaste
 });
 
 function raf(time) {
@@ -20,20 +19,14 @@ const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.sidebar nav a');
 
 lenis.on('scroll', (e) => {
-  const scrollY = e.animatedScroll; // Usamos el valor de scroll de Lenis
-
+  const scrollY = e.animatedScroll;
   let currentSectionId = '';
-
   sections.forEach(section => {
     const sectionTop = section.offsetTop;
-    const sectionHeight = section.offsetHeight;
-
-    // Determinamos si la sección está en el viewport
-   if (scrollY >= sectionTop - window.innerHeight / 2) {
-    currentSectionId = section.getAttribute('id');
+    if (scrollY >= sectionTop - window.innerHeight / 2) {
+      currentSectionId = section.getAttribute('id');
     }
   });
-  
   navLinks.forEach(link => {
     link.classList.remove('active');
     if (link.getAttribute('href') === `#${currentSectionId}`) {
@@ -43,26 +36,30 @@ lenis.on('scroll', (e) => {
 });
 
 
-// --- 3. RE-IMPLEMENTACIÓN DEL SCROLL SNAPPING ---
+// --- 3. SCROLL SNAPPING CONDICIONAL (LA SOLUCIÓN) ---
+
+// Primero, creamos un objeto Media Query para monitorear el ancho de la pantalla.
+const mediaQuery = window.matchMedia('(max-width: 768px)');
 let isScrolling = null;
 
 lenis.on('scroll', (e) => {
-  // Limpiamos el temporizador cada vez que el usuario hace scroll
+  // Siempre limpiamos el temporizador, esto es seguro.
   window.clearTimeout(isScrolling);
 
-  // Creamos un nuevo temporizador que se ejecutará cuando el usuario PARE de hacer scroll
-  isScrolling = setTimeout(() => {
-    const currentScroll = e.animatedScroll;
-    
-    // Buscamos la sección más cercana a la posición actual
-    const closestSection = [...sections].reduce((prev, curr) => {
-      return (Math.abs(curr.offsetTop - currentScroll) < Math.abs(prev.offsetTop - currentScroll) ? curr : prev);
-    });
-
-    // Hacemos que Lenis se desplace suavemente a esa sección
-    lenis.scrollTo(closestSection, { duration: 0.5 });
-
-  }, 150); // Tiempo de espera en milisegundos después de parar de scrollear
+  // --- ¡AQUÍ ESTÁ LA LÓGICA CLAVE! ---
+  // Comprobamos si la media query NO coincide, es decir, si estamos en ESCRITORIO.
+  if (!mediaQuery.matches) {
+    // Si estamos en escritorio, activamos el temporizador para el efecto de snap.
+    isScrolling = setTimeout(() => {
+      const currentScroll = e.animatedScroll;
+      const closestSection = [...sections].reduce((prev, curr) => {
+        return (Math.abs(curr.offsetTop - currentScroll) < Math.abs(prev.offsetTop - currentScroll) ? curr : prev);
+      });
+      lenis.scrollTo(closestSection, { duration: 0.5 });
+    }, 150);
+  }
+  // Si estamos en MÓVIL (mediaQuery.matches es true), el 'if' no se cumple
+  // y la lógica de snap simplemente NUNCA se ejecuta.
 });
 
 
@@ -70,7 +67,6 @@ lenis.on('scroll', (e) => {
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
-    // Le decimos a Lenis que vaya al objetivo del link
     lenis.scrollTo(this.getAttribute('href'));
   });
 });

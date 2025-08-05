@@ -1,3 +1,5 @@
+// --- JAVASCRIPT FINAL Y CORREGIDO (cards.js) ---
+
 Vue.config.devtools = true;
 
 Vue.component('card', {
@@ -16,10 +18,15 @@ Vue.component('card', {
         </div>
       </div>
     </div>`,
+
   mounted() {
-    this.width = this.$refs.card.offsetWidth;
-    this.height = this.$refs.card.offsetHeight;
+    // La corrección clave: Espera a que el CSS se aplique antes de medir.
+    this.$nextTick(() => {
+      this.width = this.$refs.card.offsetWidth;
+      this.height = this.$refs.card.offsetHeight;
+    });
   },
+
   props: ['dataImage'],
   data: () => ({
     width: 0,

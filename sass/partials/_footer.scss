@@ -1,11 +1,48 @@
-/* --- FOOTER --- */
-.main-footer {
-    background-color: var(--color-dark-gray); /* Hacemos que siga el degradado */
-    color: #a0a0a0;
-    padding: 15px;
-    text-align: center;
+/* --- Estilos Base (Escritorio) --- */
 
-    p {
-    font-size: 0.8rem;
- }
+.main-footer {
+    background-color: var(--color-dark-gray);
+    color: #a0a0a0;
+    padding: 20px;
+    text-align: center;
+}
+
+.main-footer p {
+  font-size: 0.9rem;
+}
+
+/* --- ¡LA CLAVE PARA ESCRITORIO! --- */
+/* Por defecto, en pantallas grandes, los íconos en el footer están OCULTOS. */
+.main-footer .card-sidebar {
+    display: none;
+}
+
+
+/* --- Media Query para Móvil (768px o menos) --- */
+
+@media (max-width: 768px) {
+
+    /* --- ¡LA SOLUCIÓN DEFINITIVA! --- */
+    /* 1. Convertimos el footer en un contenedor flex. */
+    .main-footer {
+        display: flex;
+        flex-direction: column; /* Apilamos sus hijos (íconos y texto) verticalmente. */
+        align-items: center;    /* ¡ESTA ES LA REGLA MÁGICA! Centra TODOS los hijos horizontalmente. */
+        gap: 15px;              /* Espacio vertical entre los íconos y el texto. */
+        padding: 5px;
+    }
+
+    /* 2. El párrafo ya no necesita margen, el 'gap' del padre lo controla. */
+    .main-footer p {
+        font-size: 0.85rem;
+        margin: 0; 
+    }
+
+    /* 3. El contenedor de los íconos ya está centrado por el padre,
+          solo necesita alinear los propios íconos. */
+    .main-footer .card-sidebar {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
 }

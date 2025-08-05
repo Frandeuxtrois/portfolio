@@ -60,11 +60,12 @@
     height: 250px;
     border-radius: 50%;
     background-color: var(--bg-secondary);
-    border: 1px solid var(--text-main);
     flex-shrink: 0;
     img {
         border-radius: 50%;
     }
+
+    
 }
 
 /* ... (el resto de estilos de profile-picture y profile-text se mantienen igual) ... */
@@ -72,3 +73,39 @@
 .profile-text { color: var(--text-secondary); }
 .profile-text h1 { font-size: 2.5rem; margin-bottom: 20px; color: var(--text-main); }
 .profile-text p { font-size: 1.1rem; line-height: 1.6; }
+
+@media (max-width: 768px) {
+
+  .main-content {
+    width: 100%;
+    margin-right: 0;
+    /* --- ¡AQUÍ ESTÁ LA CORRECCIÓN! --- */
+    
+    /* Quitamos el padding de abajo que era para la barra inferior */
+    /* padding-bottom: 90px; */ 
+    
+    /* Y añadimos un padding arriba para dejar espacio a la barra superior */
+    padding-top: 85px; /* (65px de la barra + 20px de espacio para que respire) */
+  }
+
+  .profile-section {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .profile-picture {
+    width: 200px;
+    height: 200px;
+  }
+
+  .greeting,
+  .profile-text h1 {
+    font-size: 2.5rem;   /* tamaño fijo más chico en móvil */
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  }
+  
+  .profile-text p {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,92 @@
+/* Estilos para la sección "About" */
+#about {
+  display: grid;
+  padding: 50px;
+  width: 100%;
+  box-sizing: border-box;
+
+  /* Definimos las columnas: una para el video (autoajustable) y otra para el texto (flexible) */
+  grid-template-columns: auto 1fr;
+
+  /* AQUÍ LA MAGIA: Definimos las áreas de nuestro layout */
+  grid-template-areas:
+    "titulo   titulo"  /* La primera fila: el área "titulo" ocupa ambas columnas */
+    "texto    video";  /* La segunda fila: "video" en la primera col, "texto" en la segunda */
+
+  /* Espaciado: 30px entre filas (título y contenido) y 50px entre columnas (video y texto) */
+  gap: 30px 50px;
+
+  /* Centramos verticalmente el contenido de la segunda fila */
+  align-items: center;
+}
+
+/* Asignamos cada elemento a su área de la grilla */
+#about h3 {
+  grid-area: titulo; /* Este h3 va en el área "titulo" */
+  text-align: center; /* Lo centramos para que se vea como un encabezado */
+  font-size: 2.5em; /* Un poco más grande para que destaque */
+  margin: 0;
+}
+
+.video-container {
+  grid-area: video; /* Este div va en el área "video" */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-container {
+  grid-area: texto; /* Este div va en el área "texto" */
+  text-align: center;
+}
+
+/* Estilos para el video */
+.video-container video {
+  width: 250px; /* Ancho fijo para el video, tú lo ajustas a tu gusto */
+  height: auto;
+  border-radius: 10px;
+}
+
+/* ---- MEDIA QUERY PARA MÓVILES ---- */
+@media (max-width: 768px) {
+
+  /* --- CAMBIO DE ESTRATEGIA: De Grid a Flexbox --- */
+  /*
+   * En lugar de reconfigurar la grilla, la reemplazamos por Flexbox,
+   * que es más simple y robusto para apilar elementos verticalmente.
+  */
+  #about {
+    display: flex;
+    flex-direction: column; /* Apilamos los elementos: título, texto, video */
+    align-items: center;    /* Centramos todo horizontalmente */
+    gap: 30px;              /* Espacio entre los elementos */
+  }
+
+  /*
+   * Como #about ya no es 'grid', las propiedades de 'grid-area'
+   * de sus hijos son ignoradas, así que no necesitamos tocarlas.
+   * Simplemente definimos el orden visual que queremos.
+  */
+  #about h3 {
+      order: 1; /* Título primero */
+  }
+
+  .video-container {
+      order: 2; /* Video segundo */
+      width: 100%; /* El contenedor del video ocupa todo el ancho */
+  }
+
+  .text-container {
+      order: 3; /* Texto tercero */
+  }
+
+
+  /* --- ESTILOS DEL VIDEO (PARA ASEGURAR QUE SE VEA) --- */
+  .video-container video {
+    display: block;   /* Comportamiento predecible */
+    width: 100%;      /* El video ocupa el 100% de su contenedor */
+    height: auto;     /* La altura se calcula automáticamente */
+    max-width: 350px; /* Tope para que no se vea gigante */
+    margin: 0 auto;   /* Lo centramos si la pantalla es más ancha que su max-width */
+  }
+}

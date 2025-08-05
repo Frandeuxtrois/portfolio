@@ -1,0 +1,113 @@
+        .tools-title {
+            color: var(--text-main);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .tech-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            
+        }
+
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .tech-card:hover::before {
+            left: 100%;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #00bcd4;
+            box-shadow: 0 20px 40px rgba(0, 188, 212, 0.2);
+        }
+
+        .tech-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: block;
+            position: relative;
+            z-index: 1;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        /* Placeholder para las imágenes - reemplaza con tus URLs */
+        .html5 .tech-icon { background-image: url('../images/html5.png'); }
+        .css3 .tech-icon { background-image: url('../images/css3.png'); }
+        .sass .tech-icon { background-image: url('../images/sass.png'); }
+        .bootstrap .tech-icon { background-image: url('../images/bootstrap.png'); }
+        .tailwind .tech-icon { background-image: url('../images/tailwind.png'); }
+        .javascript .tech-icon { background-image: url('../images/js.png'); }
+        .react .tech-icon { background-image: url('../images/react.png'); }
+        .php .tech-icon { background-image: url('../images/php.png'); }
+
+        .tech-name {
+            color: white;
+            font-size: 1.6rem;
+            font-weight: 300;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tech-description {
+            color: #90a4ae;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Responsive */
+@media (max-width: 768px) {
+            .tools-title {
+                font-size: 2.5rem;
+            }
+
+            .tech-grid {
+                /* Anulamos el ancho máximo que causa el overflow en móvil */
+                max-width: unset;
+
+                /* Forzamos a que ocupe el 100% del espacio disponible */
+                width: 100%;
+                
+                /* Adaptamos las columnas para que quepan mejor en pantallas angostas */
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                
+                /* Reducimos un poco el espacio entre tarjetas */
+                gap: 15px; 
+            }
+
+            .tech-card {
+                padding: 20px 15px;
+            }
+        }
